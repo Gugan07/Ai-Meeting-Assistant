@@ -17,6 +17,7 @@ app.get("/api/health", (req, res) => res.json({ status: "OK", message: "Meeting 
 
 // Routes
 app.use("/api/meeting", meetingRoutes);
+app.use("/meeting", meetingRoutes);
 
 // 404 handler
 app.use((req, res) => res.status(404).json({ success: false, message: `Route ${req.method} ${req.originalUrl} not found` }));
