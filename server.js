@@ -18,7 +18,14 @@ app.use("/api/meeting", meetingRoutes);
 app.get("/", (req, res) => res.json({ status: "OK", message: "Meeting Assistant API running" }));
 app.get("/api/health", (req, res) => res.json({ status: "OK", message: "Meeting Assistant API running" }));
 
+// 404 handler
+app.use((req, res) => res.status(404).json({ success: false, message: `Route ${req.method} ${req.originalUrl} not found` }));
+
 // Global error handler
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  console.log(`GROQ_API_KEY loaded: ${!!process.env.GROQ_API_KEY}`);
+  console.log(`Routes: POST /api/meeting/analyze`);
+});
